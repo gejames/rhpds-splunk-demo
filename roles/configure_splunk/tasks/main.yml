@@ -1,4 +1,9 @@
- ---
+---
+- name: include vars from inventory.yaml
+  include_vars:
+    file: inventory.yaml
+    name: inventory
+
 - name: install splunk es from url
   dnf:
     name: https://d7wz6hmoaavd0.cloudfront.net/products/splunk/releases/8.2.2/linux/splunk-8.2.2-87344edfcdb4-linux-2.6-x86_64.rpm
@@ -36,11 +41,4 @@
     source: "http:tower_logging_collections"
     sourcetype: "httpevent"
     state: "present"
-  vars:
-    ansible_network_os: splunk.es.splunk
-    ansible_user: admin
-    ansible_httpapi_pass: "{{ ansible_ssh_pass }}"
-    ansible_httpapi_port: 8089
-    ansible_httpapi_use_ssl: yes
-    ansible_httpapi_validate_certs: false
-    ansible_connection: httpapi
+  

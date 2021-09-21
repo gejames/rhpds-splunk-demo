@@ -1,0 +1,7 @@
+ansible_network_os: splunk.es.splunk
+ansible_user: admin
+ansible_httpapi_pass: "{{ ansible_ssh_pass }}"
+ansible_httpapi_port: 8089
+ansible_httpapi_use_ssl: yes
+ansible_httpapi_validate_certs: false
+ansible_connection: httpapi

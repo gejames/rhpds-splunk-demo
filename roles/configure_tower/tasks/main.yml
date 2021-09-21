@@ -1,4 +1,9 @@
 ---
+- name: include vars from inventory.yaml
+  include_vars:
+    file: inventory.yaml
+    name: inventory
+    
 - name: remove demo job template
   awx.awx.tower_job_template:
     name: "Demo Job Template"

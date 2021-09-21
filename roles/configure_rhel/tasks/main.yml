@@ -1,7 +1,7 @@
 ---
 - name: convert workshop inventory ini to yaml
-     shell: ansible-inventory -i ~/lab_inventory/hosts -y --list > inventory.yaml
-     become: no
+  shell: ansible-inventory -i ~/lab_inventory/hosts -y --list > inventory.yaml
+  become: no
 
 - name: include vars from inventory.yaml
   include_vars:
