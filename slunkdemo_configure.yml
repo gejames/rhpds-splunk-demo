@@ -1,0 +1,14 @@
+---
+- name: configure splunk es 
+  hosts: localhost
+  gather_facts: false
+  become: yes
+
+  collections:
+     - awx.awx
+     - splunk.es
+
+  roles:
+    - configure_rhel
+    
+         

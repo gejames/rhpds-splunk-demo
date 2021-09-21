@@ -1,0 +1,46 @@
+ ---
+- name: install splunk es from url
+  dnf:
+    name: https://d7wz6hmoaavd0.cloudfront.net/products/splunk/releases/8.2.2/linux/splunk-8.2.2-87344edfcdb4-linux-2.6-x86_64.rpm
+    disable_gpg_check: true
+    state: present
+
+- name: create symlink to splunk binary
+  ansible.builtin.file:
+    src: /opt/splunk/bin/splunk
+    dest: /usr/bin/splunk
+    state: link
+
+- name: copy user-seed.conf 
+  template:
+    src: templates/user-seed.j2
+    dest: /opt/splunk/etc/system/local/user-seed.conf
+  
+- name: configure splunk  - accept license and set user/password
+  shell: /opt/splunk/bin/splunk start --accept-license --answer-yes --no-prompt || /bin/true
+
+- name: configure splunk - copy start_controller_job 
+  copy:
+    src: files/start_controller_job.sh
+    dest: /opt/splunk/bin/scripts/start_controller_job.sh
+
+- name: confiugre splunk - make start_controller_job.sh executeable
+  file:
+    path: /opt/splunk/bin/scripts/start_controller_job.sh
+    mode: '0755'
+
+- name: create splunk_data_input_network 
+  splunk.es.data_input_network:
+    name: "9199"
+    protocol: "tcp"
+    source: "http:tower_logging_collections"
+    sourcetype: "httpevent"
+    state: "present"
+  vars:
+    ansible_network_os: splunk.es.splunk
+    ansible_user: admin
+    ansible_httpapi_pass: "{{ ansible_ssh_pass }}"
+    ansible_httpapi_port: 8089
+    ansible_httpapi_use_ssl: yes
+    ansible_httpapi_validate_certs: false
+    ansible_connection: httpapi
