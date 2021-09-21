@@ -1,0 +1,22 @@
+- name: install splunk forwarder
+  dnf:
+    name: https://d7wz6hmoaavd0.cloudfront.net/products/universalforwarder/releases/8.2.1/linux/splunkforwarder-8.2.1-ddff1c41e5cf-linux-2.6-x86_64.rpm
+    disable_gpg_check: true
+    state: present
+
+- name: create symlink to splunk binary
+  ansible.builtin.file:
+    src: /opt/splunkforwarder/bin/splunk
+    dest: /usr/bin/splunk
+    state: link
+
+- name: copy user-seed.conf 
+  template:
+    src: templates/user-seed.j2
+    dest: /opt/splunkforwarder/etc/system/local/user-seed.conf
+  
+- name: configure splunk forwarder - accept license and set user/password
+  shell: /opt/splunkforwarder/bin/splunk restart --accept-license --answer-yes --no-prompt || /bin/true
+
+- name: configure splunk forwarder - add forward server
+  shell: "/opt/splunkforwarder/bin/splunk add forward-server ansible-1:9997 -auth admin:{{ ansible_ssh_pass }} || /bin/true"

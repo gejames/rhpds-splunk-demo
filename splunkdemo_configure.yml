@@ -1,5 +1,4 @@
 ---
-
 - name: configure splunk es 
   hosts: localhost
   gather_facts: false
@@ -13,5 +12,11 @@
     - configure_rhel
     - configure_splunk
     - configure_tower
-    
-         
+       
+- name: configure splunk forwarder on node1
+  hosts: node1
+  gather_facts: false
+  become: yes
+
+  roles:
+    - configure_node1

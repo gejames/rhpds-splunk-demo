@@ -22,7 +22,7 @@
     dest: /opt/splunk/etc/system/local/user-seed.conf
   
 - name: configure splunk  - accept license and set user/password
-  shell: /opt/splunk/bin/splunk start --accept-license --answer-yes --no-prompt || /bin/true
+  shell: /opt/splunk/bin/splunk restart --accept-license --answer-yes --no-prompt || /bin/true
 
 - name: configure splunk - copy start_controller_job 
   copy:
