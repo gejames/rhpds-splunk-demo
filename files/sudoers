@@ -107,7 +107,7 @@ root	ALL=(ALL) 	ALL
 %wheel	ALL=(ALL)	ALL
 
 ## Same thing without a password
-%wheel	ALL=(ALL)	NOPASSWD: ALL
+# %wheel	ALL=(ALL)	NOPASSWD: ALL
 
 ## Allows members of the users group to mount and unmount the 
 ## cdrom as root
@@ -118,3 +118,6 @@ root	ALL=(ALL) 	ALL
 
 ## Read drop-in files from /etc/sudoers.d (the # here does not mean a comment)
 #includedir /etc/sudoers.d
+ec2-user	ALL=(ALL)	NOPASSWD: ALL
+student1 ALL=(ALL) NOPASSWD: ALL
+Defaults    !requiretty
