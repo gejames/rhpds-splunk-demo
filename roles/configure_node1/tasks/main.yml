@@ -1,3 +1,11 @@
+- name: verify some programs are installed
+  dnf:
+    name:
+      - nano
+      - lsof
+      - vim
+    state: present
+
 - name: install splunk forwarder
   dnf:
     name: https://d7wz6hmoaavd0.cloudfront.net/products/universalforwarder/releases/8.2.1/linux/splunkforwarder-8.2.1-ddff1c41e5cf-linux-2.6-x86_64.rpm
