@@ -3,9 +3,6 @@
   shell: ansible-inventory -i ~/lab_inventory/hosts -y --list > inventory.yaml
   become: no
 
-- name: install collections
-  shell: ansible-galaxy collection install awx.awx splunk.es
-  
 - name: verify some programs are installed
   dnf:
     name:
