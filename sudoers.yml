@@ -1,5 +1,5 @@
 - name: restore original sudoers file
-  hosts: rhel
+  hosts: node1
   gather_facts: false
   become: yes
 
