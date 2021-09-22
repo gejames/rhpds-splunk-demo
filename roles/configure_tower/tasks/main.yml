@@ -48,7 +48,7 @@
     description: "Splunk demo files"
     organization: "Default"
     scm_type: git
-    scm_url: https://github.com/redhat-gpst/splunk-demo.git
+    scm_url: https://github.com/gejames/rhpds-splunk-demo.git
     state: present
     tower_username: admin
     tower_password: "{{ ansible_ssh_pass }}"
@@ -60,6 +60,7 @@
     name: "SPLUNK / Verify sudoers"
     job_type: "run"
     organization: "Default"
+    limit: node1
     inventory: "Workshop Inventory"
     project: "Splunk Demo"
     playbook: "sudoers.yml"

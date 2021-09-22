@@ -1,6 +1,7 @@
 ---
 - name: configure splunk es 
   hosts: localhost
+  connection: local
   gather_facts: false
   become: yes
 
@@ -20,3 +21,23 @@
 
   roles:
     - configure_node1
+
+- name: print url for splunk 
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  become: yes
+
+  tasks:
+    
+    - name: gret url for splunk
+      find:
+        paths: /etc/letsencrypt/live
+        file_type: directory
+        use_regex: yes
+        patterns: 'student.\..*'
+      register: url
+
+
+    - debug:
+        msg: "Splunk URL: http://{{ url.files[0].path | regex_search('student.*') }}:8000"
