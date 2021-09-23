@@ -38,6 +38,5 @@
         patterns: 'student.\..*'
       register: url
 
-
     - debug:
         msg: "Splunk URL: http://{{ url.files[0].path | regex_search('student.*') }}:8000"
